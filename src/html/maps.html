@@ -108,7 +108,7 @@
                                             <p><span class="bold">Opening Hours:</span> ${openingHoursString}</p>
                                             <p><span class="bold">Rating:</span> ${markerInfo.rating}</p>
                                             <p><span class="bold">Total Number of Ratings:</span> ${markerInfo.user_ratings_total}</p>
-                                            <p><span class="bold">Website:</span> ${markerInfo.website}</p>
+                                            <p><span class="bold">Website:</span> ${markerInfo.website || 'N/A'}</p>
                                         </div>
                                         <h2>Reviews</h2>
                                         ${reviewsString}
