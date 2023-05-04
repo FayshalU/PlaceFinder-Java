@@ -1,5 +1,6 @@
 package models;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /*
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @author fayshaluddin
  */
 
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Location {
     public String name;
@@ -21,4 +23,9 @@ public class Location {
     public int user_ratings_total;
     public Geometry geometry;
     public String business_status;
+    public String formatted_phone_number;
+    public String international_phone_number;
+    public String website;
+    public ArrayList<Review> reviews;
+    public OpeningHours opening_hours;
 }

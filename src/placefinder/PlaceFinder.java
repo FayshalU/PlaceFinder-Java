@@ -17,5 +17,5 @@ public class PlaceFinder {
         Home h = new Home();
 	h.setVisible(true);
     }
-    
+
 }
