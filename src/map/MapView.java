@@ -41,19 +41,19 @@ public class MapView extends JFXPanel {
         });
 
     }
-    
+
     public void centerMap(ArrayList<Location> locations, String zoomLevel){
         int centerIndex = (int) (locations.size() / 2);
         var centerData = locations.get(centerIndex);
-        
+
          Platform.runLater(() -> {
             engine.executeScript("setCenter(" + centerData.geometry.location.lat + "," + centerData.geometry.location.lng + "," + zoomLevel + ")");
         });
-    
+
     }
     public void addMarkersToMap(ArrayList<Location> locations) {
         this.centerMap(locations, "12");
-        
+
         for (Location loc : locations) {
               this.addMarker(loc);
         }
@@ -62,14 +62,14 @@ public class MapView extends JFXPanel {
     public void addMarker(Location loc) {
         Location location = this.getLocationDetails(loc.place_id);
         ObjectMapper mapper = new ObjectMapper();
-        
+
         try {
             System.out.println(mapper.writeValueAsString(location));
             var locationData = mapper.writeValueAsString(location);
             var coords = mapper.writeValueAsString(location.geometry.location);
             var openingHours = mapper.writeValueAsString(location.opening_hours);
-            String reviews = mapper.writeValueAsString(location.reviews);   
-            
+            String reviews = mapper.writeValueAsString(location.reviews);
+
             Platform.runLater(() -> {
                 engine.executeScript("addMarker(" + locationData + "," + coords + ","+ openingHours + "," + reviews +")");
             });
@@ -83,7 +83,7 @@ public class MapView extends JFXPanel {
             engine.executeScript("deleteMarkers()");
         });
     }
-    
+
     private Location getLocationDetails(String placeId) {
         String fields = "place_id,name,formatted_address,formatted_phone_number,geometry,international_phone_number,rating,reviews,url,website,opening_hours,rating,user_ratings_total,business_status";
         Location result = new Location();
@@ -91,7 +91,7 @@ public class MapView extends JFXPanel {
             var client = HttpClient.newHttpClient();
 
             var request = HttpRequest.newBuilder(
-                    URI.create("https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyB7Fx2uQ8mCWXVkJgBmlG58k7Cr0DUYMjg&place_id=" + placeId + "&fields=" + fields))
+                    URI.create("https://maps.googleapis.com/maps/api/place/details/json?key=API_KEY&place_id=" + placeId + "&fields=" + fields))
                 .header("accept", "application/json")
                 .build();
 
@@ -99,12 +99,12 @@ public class MapView extends JFXPanel {
 
             var res = api.body();
             ObjectMapper mapper = new ObjectMapper();
-            DetailsResponse response = mapper.readValue(res, DetailsResponse.class);	
+            DetailsResponse response = mapper.readValue(res, DetailsResponse.class);
             result = response.result;
         } catch (Exception ex) {
             System.out.println("Exception occured. " + ex.getMessage());
         }
-        
+
         return result;
     }
 }

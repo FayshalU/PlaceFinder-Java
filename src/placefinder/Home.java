@@ -91,6 +91,10 @@ public class Home extends JFrame {
         locationLabel.setText("Location");
 
         locationField.setFont(new Font("Helvetica Neue", 0, 16)); // NOI18N
+        locationField.setBorder(BorderFactory.createCompoundBorder(
+            locationField.getBorder(),
+             BorderFactory.createEmptyBorder(5, 5, 5, 5))
+        );
 
         categoryField.setFont(new Font("Helvetica Neue", 0, 16)); // NOI18N
 
@@ -135,7 +139,7 @@ public class Home extends JFrame {
 
 
     private void searchAction(ActionEvent evt) {
-       map.removeAllMarkers();
+        map.removeAllMarkers();
         String category, location;
         category = categoryField.getSelectedItem().toString();
         location = locationField.getText();
@@ -161,7 +165,7 @@ public class Home extends JFrame {
             var client = HttpClient.newHttpClient();
 
             var request = HttpRequest.newBuilder(
-                    URI.create("https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyB7Fx2uQ8mCWXVkJgBmlG58k7Cr0DUYMjg&radius=5000&query=" + address + "&types=" + types))
+                    URI.create("https://maps.googleapis.com/maps/api/place/textsearch/json?key=API_KEY&radius=5000&query=" + address + "&types=" + types))
                 .header("accept", "application/json")
                 .build();
 
